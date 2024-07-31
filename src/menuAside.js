@@ -9,24 +9,23 @@ import {
   mdiViewList,
   mdiTelevisionGuide,
   mdiResponsive,
-  mdiPalette,
-  mdiReact
+  mdiPalette
 } from '@mdi/js'
 
 export default [
   {
     to: '/dashboard',
     icon: mdiMonitor,
-    label: 'Dashboard'
+    label: '欢迎页'
   },
   {
     to: '/tables',
-    label: 'Tables',
+    label: '表格',
     icon: mdiTable
   },
   {
     to: '/forms',
-    label: 'Forms',
+    label: '表单示范页',
     icon: mdiSquareEditOutline
   },
   {
@@ -41,7 +40,7 @@ export default [
   },
   {
     to: '/',
-    label: 'Styles',
+    label: '主题选择器',
     icon: mdiPalette
   },
   {
@@ -64,6 +63,7 @@ export default [
     icon: mdiViewList,
     menu: [
       {
+        to: '/profile',
         label: 'Item One'
       },
       {
@@ -75,12 +75,6 @@ export default [
     href: 'https://github.com/justboil/admin-one-vue-tailwind',
     label: 'GitHub',
     icon: mdiGithub,
-    target: '_blank'
-  },
-  {
-    href: 'https://github.com/justboil/admin-one-react-tailwind',
-    label: 'React version',
-    icon: mdiReact,
     target: '_blank'
   }
 ]

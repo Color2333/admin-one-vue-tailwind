@@ -83,7 +83,7 @@ const checked = (isChecked, client) => {
         <th v-if="checkable" />
         <th />
         <th>Name</th>
-        <th>Company</th>
+        <th>公司</th>
         <th>City</th>
         <th>Progress</th>
         <th>Created</th>
@@ -118,12 +118,7 @@ const checked = (isChecked, client) => {
         <td class="before:hidden lg:w-1 whitespace-nowrap">
           <BaseButtons type="justify-start lg:justify-end" no-wrap>
             <BaseButton color="info" :icon="mdiEye" small @click="isModalActive = true" />
-            <BaseButton
-              color="danger"
-              :icon="mdiTrashCan"
-              small
-              @click="isModalDangerActive = true"
-            />
+            <BaseButton color="danger" :icon="mdiTrashCan" small @click="isModalDangerActive = true" />
           </BaseButtons>
         </td>
       </tr>
@@ -132,15 +127,8 @@ const checked = (isChecked, client) => {
   <div class="p-3 lg:px-6 border-t border-gray-100 dark:border-slate-800">
     <BaseLevel>
       <BaseButtons>
-        <BaseButton
-          v-for="page in pagesList"
-          :key="page"
-          :active="page === currentPage"
-          :label="page + 1"
-          :color="page === currentPage ? 'lightDark' : 'whiteDark'"
-          small
-          @click="currentPage = page"
-        />
+        <BaseButton v-for="page in pagesList" :key="page" :active="page === currentPage" :label="page + 1"
+          :color="page === currentPage ? 'lightDark' : 'whiteDark'" small @click="currentPage = page" />
       </BaseButtons>
       <small>Page {{ currentPageHuman }} of {{ numPages }}</small>
     </BaseLevel>

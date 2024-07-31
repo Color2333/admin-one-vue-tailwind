@@ -7,11 +7,15 @@ import { useMainStore } from '@/stores/main.js'
 
 import './css/main.css'
 
+let app = createApp(App)
 // Init Pinia
 const pinia = createPinia()
+if (process.env.NODE_ENV === 'development') {
+  app.config.devtools = true
+}
 
 // Create Vue app
-createApp(App).use(router).use(pinia).mount('#app')
+app.use(router).use(pinia).mount('#app')
 
 // Init main store
 const mainStore = useMainStore(pinia)

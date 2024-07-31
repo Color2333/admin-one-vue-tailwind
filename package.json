@@ -1,5 +1,5 @@
 {
-  "name": "admin-one-vue-tailwind",
+  "name": "ocean-system",
   "version": "3.3.0",
   "scripts": {
     "dev": "vite",
@@ -29,6 +29,7 @@
     "postcss-import": "^15.1.0",
     "prettier": "^3.0.3",
     "tailwindcss": "^3.3.3",
-    "vite": "^4.4.9"
+    "vite": "^4.4.9",
+    "vite-plugin-vue-devtools": "^7.3.7"
   }
 }
