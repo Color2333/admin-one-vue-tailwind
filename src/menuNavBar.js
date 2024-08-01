@@ -1,16 +1,4 @@
-import {
-  mdiMenu,
-  mdiClockOutline,
-  mdiCloud,
-  mdiCrop,
-  mdiAccount,
-  mdiCogOutline,
-  mdiEmail,
-  mdiLogout,
-  mdiThemeLightDark,
-  mdiGithub,
-  mdiReact
-} from '@mdi/js'
+import { mdiAccount, mdiCogOutline, mdiEmail, mdiLogout, mdiThemeLightDark } from '@mdi/js'
 
 export default [
   {

@@ -3,8 +3,8 @@ import { ref, computed } from 'vue'
 import axios from 'axios'
 
 export const useMainStore = defineStore('main', () => {
-  const userName = ref('John Doe')
-  const userEmail = ref('doe.doe.doe@example.com')
+  const userName = ref('姜昊')
+  const userEmail = ref('2252137@tongji.edu.cn')
 
   const userAvatar = computed(
     () =>

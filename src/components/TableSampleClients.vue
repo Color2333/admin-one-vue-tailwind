@@ -21,15 +21,16 @@ const isModalActive = ref(false)
 
 const isModalDangerActive = ref(false)
 
-const perPage = ref(5)
+const perPage = ref(20)
 
 const currentPage = ref(0)
-
+const devices = ref([
+  { name: 'SEB16', id: '10903', source: '东海海底观测试验系统四脚架观测平台', elements: '温度、电导率、压力等' },
+  { name: 'SEB26', id: '10905', source: '东海海底观测试验系统四脚架观测平台', elements: '深度、温度、浊度等' },
+  { name: '气象观测仪', id: 'NULL', source: '浮标', elements: '风速、风向、温度等' }
+]);
 const checkedRows = ref([])
 
-const itemsPaginated = computed(() =>
-  items.value.slice(perPage.value * currentPage.value, perPage.value * (currentPage.value + 1))
-)
 
 const numPages = computed(() => Math.ceil(items.value.length / perPage.value))
 
@@ -80,40 +81,34 @@ const checked = (isChecked, client) => {
   <table>
     <thead>
       <tr>
-        <th v-if="checkable" />
-        <th />
-        <th>Name</th>
-        <th>公司</th>
-        <th>City</th>
-        <th>Progress</th>
-        <th>Created</th>
-        <th />
+        <th scope="col">
+          仪器名称
+        </th>
+        <th scope="col">
+          仪器编号
+        </th>
+        <th scope="col">
+          数据来源
+        </th>
+        <th scope="col">
+          测量要素
+        </th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="client in itemsPaginated" :key="client.id">
+      <tr v-for="device in devices" :key="device.id">
         <TableCheckboxCell v-if="checkable" @checked="checked($event, client)" />
-        <td class="border-b-0 lg:w-6 before:hidden">
-          <UserAvatar :username="client.name" class="w-24 h-24 mx-auto lg:w-6 lg:h-6" />
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+          {{ device.name }}
         </td>
-        <td data-label="Name">
-          {{ client.name }}
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+          {{ device.id }}
         </td>
-        <td data-label="Company">
-          {{ client.company }}
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+          {{ device.source }}
         </td>
-        <td data-label="City">
-          {{ client.city }}
-        </td>
-        <td data-label="Progress" class="lg:w-32">
-          <progress class="flex w-2/5 self-center lg:w-full" max="100" :value="client.progress">
-            {{ client.progress }}
-          </progress>
-        </td>
-        <td data-label="Created" class="lg:w-1 whitespace-nowrap">
-          <small class="text-gray-500 dark:text-slate-400" :title="client.created">{{
-            client.created
-          }}</small>
+        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+          {{ device.elements }}
         </td>
         <td class="before:hidden lg:w-1 whitespace-nowrap">
           <BaseButtons type="justify-start lg:justify-end" no-wrap>

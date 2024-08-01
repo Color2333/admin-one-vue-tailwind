@@ -5,10 +5,10 @@ import BaseButtons from '@/components/BaseButtons.vue'
 import BaseButton from '@/components/BaseButton.vue'
 
 const dataItems = ref([
-    { name: 'Depth', meaning: 'Depth of Measurement', value: '10.5' },
-    { name: 'Temp', meaning: 'Temperature', value: '15.2' },
-    { name: 'Turbidity', meaning: 'Water Turbidity', value: '3.1' },
-    { name: 'Time', meaning: 'Timestamp', value: '2018-03-01T16:00:00' }
+    { name: 'Depth', meaning: '深度(m)', value: '10.5' },
+    { name: 'Temp', meaning: '温度(℃)', value: '15.2' },
+    { name: 'Turbidity', meaning: '浊度(NTU)', value: '3.1' },
+    { name: 'Time', meaning: '系统时间', value: '2018-03-01T16:00:00' }
 ]);
 
 
@@ -30,7 +30,7 @@ const toggleColumnVisibility = (column) => {
             <tr>
                 <th v-if="isVisible.name">名称</th>
                 <th v-if="isVisible.meaning">含义</th>
-                <th v-if="isVisible.value">值</th>
+                <th v-if="isVisible.value">样例值</th>
                 <th v-if="isVisible.actions">操作</th>
             </tr>
         </thead>

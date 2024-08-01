@@ -34,11 +34,6 @@ export default [
     icon: mdiTelevisionGuide
   },
   {
-    to: '/responsive',
-    label: 'Responsive',
-    icon: mdiResponsive
-  },
-  {
     to: '/',
     label: '主题选择器',
     icon: mdiPalette
@@ -75,11 +70,5 @@ export default [
         label: '气象仪'
       }
     ]
-  },
-  {
-    href: 'https://github.com/justboil/ocean-system',
-    label: 'GitHub',
-    icon: mdiGithub,
-    target: '_blank'
   }
 ]

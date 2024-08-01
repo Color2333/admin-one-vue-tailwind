@@ -1,8 +1,7 @@
 <template>
   <LayoutAuthenticated>
     <SectionMain>
-      <SectionTitleLineWithButton :icon="mdiTableBorder" title="SEB26数据总览" main>
-      </SectionTitleLineWithButton>
+      <SectionTitleLineWithButton :icon="mdiTableBorder" title="SEB26 数据总览" main />
       <NotificationBar color="info" :icon="mdiMonitorCellphone">
         <b>Responsive table.</b> Collapses on mobile
       </NotificationBar>
@@ -11,8 +10,7 @@
         <TableSampleClients />
       </CardBox>
 
-      <SectionTitleLineWithButton :icon="mdiChartPie" title="选择日期范围">
-      </SectionTitleLineWithButton>
+      <SectionTitleLineWithButton :icon="mdiChartPie" title="选择日期范围" />
       <CardBox class="mb-6">
         <div class="demo-date-picker">
           <el-date-picker v-model="value" type="datetimerange" start-placeholder="Start date" end-placeholder="End date"
@@ -24,11 +22,22 @@
       </CardBox>
 
       <div v-for="element in elements" :key="element.key">
-        <SectionTitleLineWithButton :icon="mdiChartPie" :title="element.label">
-        </SectionTitleLineWithButton>
+        <SectionTitleLineWithButton :icon="mdiChartPie" :title="element.label" />
         <CardBox class="mb-6">
           <div v-if="element.chartData">
             <line-chart :data="element.chartData" class="h-96" />
+          </div>
+        </CardBox>
+        <CardBox class="mb-6">
+          <div v-if="element.statistics">
+            <el-row :gutter="20">
+              <el-col :span="8" v-for="stat in element.statistics" :key="stat.label">
+                <div class="statistic-card">
+                  <el-statistic :value="stat.value"
+                    :formatter="value => typeof value === 'number' ? value.toFixed(4) : value" :title="stat.label" />
+                </div>
+              </el-col>
+            </el-row>
           </div>
         </CardBox>
       </div>
@@ -41,29 +50,29 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted } from 'vue';
 import {
   mdiMonitorCellphone,
   mdiTableBorder,
-  mdiReload,
   mdiChartPie
-} from '@mdi/js'
+} from '@mdi/js';
 import axios from 'axios';
-import SectionMain from '@/components/SectionMain.vue'
-import NotificationBar from '@/components/NotificationBar.vue'
-import TableSampleClients from '@/components/Table10905.vue'
-import CardBox from '@/components/CardBox.vue'
-import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue'
-import SectionTitleLineWithButton from '@/components/SectionTitleLineWithButton.vue'
-import CardBoxComponentEmpty from '@/components/CardBoxComponentEmpty.vue'
-import LineChart from '@/components/Charts/LineChart.vue'
-import BaseButton from '@/components/BaseButton.vue'
+import SectionMain from '@/components/SectionMain.vue';
+import NotificationBar from '@/components/NotificationBar.vue';
+import TableSampleClients from '@/components/Table10905.vue'; // 确保这里的组件是针对SEB26的表格组件
+import CardBox from '@/components/CardBox.vue';
+import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue';
+import SectionTitleLineWithButton from '@/components/SectionTitleLineWithButton.vue';
+import CardBoxComponentEmpty from '@/components/CardBoxComponentEmpty.vue';
+import LineChart from '@/components/Charts/LineChart.vue';
+import BaseButton from '@/components/BaseButton.vue';
 
 const elements = ref([
-  { key: 'Temp', label: 'Temperature', chartData: null },
-  { key: 'Depth', label: 'Depth', chartData: null },
-  { key: 'Turbidity', label: 'Turbidity', chartData: null },
+  { key: 'Depth', label: 'Depth', chartData: null, statistics: [] },
+  { key: 'Temp', label: 'Temperature', chartData: null, statistics: [] },
+  { key: 'Turbidity', label: 'Turbidity', chartData: null, statistics: [] }
 ]);
+
 
 const value = ref(['2018-03-01T16:00:00.000Z', '2018-03-01T17:00:00.000Z']);
 
@@ -83,6 +92,7 @@ const fetchSEB26Data = async () => {
 
   for (let element of elements.value) {
     await fetchElementData(element.key, start_time, end_time);
+    await fetchStatistics(element.key, start_time, end_time);
   }
 };
 
@@ -99,7 +109,34 @@ const fetchElementData = async (parameter, start_time, end_time) => {
     console.error('Error fetching data:', error);
   }
 };
+const fetchStatistics = async (parameter, start_time, end_time) => {
+  try {
+    // 向后端发送请求，获取统计数据
+    const response = await axios.post('http://localhost:8000/seb26/statistics', {
+      start_time,
+      end_time,
+      parameters: [parameter]
+    });
 
+    // 在元素数组中找到当前参数对应的元素
+    const element = elements.value.find(el => el.key === parameter);
+    if (response.data) {
+      // 将获取的统计数据赋值给element.statistics
+      element.statistics = [
+        { label: '最大值', value: response.data.max[parameter] },
+        { label: '最小值', value: response.data.min[parameter] },
+        { label: '平均值', value: response.data.average[parameter] },
+        { label: '标准差', value: response.data.stddev[parameter] },
+        { label: '置信区间', value: response.data.confidence_interval[parameter].join(", ") }
+      ];
+    }
+  } catch (error) {
+    console.error('Error fetching statistics:', error);
+    // 如果请求失败，可以设置一些默认值或显示错误信息
+    const element = elements.value.find(el => el.key === parameter);
+    element.statistics = [{ label: 'Error', value: 'Failed to fetch data' }];
+  }
+};
 const formatChartData = (data, label) => {
   return {
     labels: data.map(item => item.Time),
