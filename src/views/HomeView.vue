@@ -54,18 +54,18 @@ const transactionBarItems = computed(() => mainStore.history)
         <CardBoxWidget trend="Overflow" trend-type="alert" color="text-red-500" :icon="mdiChartTimelineVariant"
           :number="256" label="风速" />
       </div>
-
+      <!-- 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         <div class="flex flex-col justify-between">
-          <!-- <CardBoxTransaction v-for="(transaction, index) in transactionBarItems" :key="index"
+          <CardBoxTransaction v-for="(transaction, index) in transactionBarItems" :key="index"
             :amount="transaction.amount" :date="transaction.date" :business="transaction.business"
-            :type="transaction.type" :name="transaction.name" :account="transaction.account" /> -->
+            :type="transaction.type" :name="transaction.name" :account="transaction.account" />
         </div>
         <div class="flex flex-col justify-between">
-          <!-- <CardBoxClient v-for="client in clientBarItems" :key="client.id" :name="client.name" :login="client.login"
-            :date="client.created" :progress="client.progress" /> -->
+          <CardBoxClient v-for="client in clientBarItems" :key="client.id" :name="client.name" :login="client.login"
+            :date="client.created" :progress="client.progress" />
         </div>
-      </div>
+      </div> -->
 
 
       <SectionTitleLineWithButton :icon="mdiChartPie" title="风向时速表">
@@ -78,10 +78,10 @@ const transactionBarItems = computed(() => mainStore.history)
         </div>
       </CardBox>
 
-      <SectionTitleLineWithButton :icon="mdiAccountMultiple" title="Clients" />
+      <SectionTitleLineWithButton :icon="mdiAccountMultiple" title="仪器概览" />
 
       <NotificationBar color="info" :icon="mdiMonitorCellphone">
-        <b>Responsive table.</b> Collapses on mobile
+        <b>这是一个类似通知的组件</b> 可以关闭
       </NotificationBar>
 
       <CardBox has-table>

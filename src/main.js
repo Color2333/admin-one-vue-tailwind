@@ -4,7 +4,8 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import { useMainStore } from '@/stores/main.js'
-
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 import './css/main.css'
 
 let app = createApp(App)
@@ -15,7 +16,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Create Vue app
-app.use(router).use(pinia).mount('#app')
+app.use(ElementPlus).use(router).use(pinia)
+app.mount('#app')
 
 // Init main store
 const mainStore = useMainStore(pinia)

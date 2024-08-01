@@ -21,6 +21,8 @@ const colorClass = computed(() => {
       return gradientBgPurplePink
     case 'pinkRed':
       return gradientBgPinkRed
+    case 'blue':
+      return gradientBgLightBlueBlue
   }
 
   return ''

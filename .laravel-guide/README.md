@@ -1,8 +1,8 @@
 # Free Laravel Vue 3.x Tailwind 3.x Dashboard
 
-[![Vue 3.x Tailwind 3.x admin dashboard demo](https://static.justboil.me/templates/one/repo-styles.png)](https://justboil.github.io/admin-one-vue-tailwind/)
+[![Vue 3.x Tailwind 3.x admin dashboard demo](https://static.justboil.me/templates/one/repo-styles.png)](https://justboil.github.io/ocean-system/)
 
-This guide will help you integrate your Laravel application with [Admin One - free Vue 3 Tailwind 3 Admin Dashboard with dark mode](https://github.com/justboil/admin-one-vue-tailwind).
+This guide will help you integrate your Laravel application with [Admin One - free Vue 3 Tailwind 3 Admin Dashboard with dark mode](https://github.com/justboil/ocean-system).
 
 **Admin One** is simple, fast and free Vue.js 3.x Tailwind CSS 3.x admin dashboard with Laravel 9.x integration.
 
@@ -58,9 +58,9 @@ npm i pinia @tailwindcss/line-clamp @mdi/js chart.js numeral -D
 
 **Before you start,** we recommend to rename Laravel Breeze's original folders (so you'll keep them for future reference) — `resources/js/Components` `resources/js/Layouts` `resources/js/Pages` to something like ComponentsBreeze, LayoutsBreeze, etc.
 
-Now clone [justboil/admin-one-vue-tailwind](https://github.com/justboil/admin-one-vue-tailwind) project somewhere locally (into any separate folder)
+Now clone [justboil/ocean-system](https://github.com/justboil/ocean-system) project somewhere locally (into any separate folder)
 
-Next, copy these files **from justboil/admin-one-vue-tailwind project** directory **to laravel project** directory:
+Next, copy these files **from justboil/ocean-system project** directory **to laravel project** directory:
 
 - Copy `tailwind.config.js` to `/`
 - Copy `src/components` `src/layouts` `src/stores` `src/colors.js` `src/config.js` `src/menuAside.js` `src/menuNavBar.js` to `resources/js/`
@@ -101,7 +101,7 @@ module.exports = {
 
 Let's just add first page. You can repeat these steps for other pages, if you wish to.
 
-First, copy `src/views/HomeView.vue` (from justboil/admin-one-vue-tailwind project) to `resources/js/Pages/` (in your Laravel project).
+First, copy `src/views/HomeView.vue` (from justboil/ocean-system project) to `resources/js/Pages/` (in your Laravel project).
 
 Then, open `resources/js/Pages/HomeView.vue` and add `<Head>`:
 

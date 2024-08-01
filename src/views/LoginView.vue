@@ -12,8 +12,8 @@ import BaseButtons from '@/components/BaseButtons.vue'
 import LayoutGuest from '@/layouts/LayoutGuest.vue'
 
 const form = reactive({
-  login: 'john.doe',
-  pass: 'highly-secure-password-fYjUw-',
+  login: '2252137',
+  pass: '123456',
   remember: true
 })
 
@@ -26,23 +26,24 @@ const submit = () => {
 
 <template>
   <LayoutGuest>
-    <SectionFullScreen v-slot="{ cardClass }" bg="purplePink">
+    <SectionFullScreen v-slot="{ cardClass }" bg="purple">
       <CardBox :class="cardClass" is-form @submit.prevent="submit">
-        <FormField label="Login" help="Please enter your login">
+        <h1>Login Page</h1>
+        <FormField label="账号" help="请输入你的账号">
           <FormControl v-model="form.login" :icon="mdiAccount" name="login" autocomplete="username" />
         </FormField>
 
-        <FormField label="Password" help="Please enter your password">
+        <FormField label="密码" help="请输入你的密码">
           <FormControl v-model="form.pass" :icon="mdiAsterisk" type="password" name="password"
             autocomplete="current-password" />
         </FormField>
 
-        <FormCheckRadio v-model="form.remember" name="remember" label="Remember" :input-value="true" />
+        <FormCheckRadio v-model="form.remember" name="remember" label="记住密码" :input-value="true" />
 
         <template #footer>
           <BaseButtons>
-            <BaseButton type="submit" color="info" label="Login" />
-            <BaseButton to="/dashboard" color="info" outline label="Back" />
+            <BaseButton type="submit" color="info" label="登录" />
+            <BaseButton to="/dashboard" color="info" outline label="返回" />
           </BaseButtons>
         </template>
       </CardBox>

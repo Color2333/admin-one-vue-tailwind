@@ -54,25 +54,30 @@ export default [
     icon: mdiLock
   },
   {
-    to: '/error',
+    to: '/ObservationDashboard',
     label: 'Error',
     icon: mdiAlertCircle
   },
   {
-    label: 'Dropdown',
+    label: '历史观测数据',
     icon: mdiViewList,
     menu: [
       {
-        to: '/profile',
-        label: 'Item One'
+        to: '/10903',
+        label: '10903'
       },
       {
-        label: 'Item Two'
+        to: '/10905',
+        label: '10905'
+      },
+      {
+        to: '/observation',
+        label: '气象仪'
       }
     ]
   },
   {
-    href: 'https://github.com/justboil/admin-one-vue-tailwind',
+    href: 'https://github.com/justboil/ocean-system',
     label: 'GitHub',
     icon: mdiGithub,
     target: '_blank'
