@@ -2,12 +2,15 @@
 import { computed, ref, onMounted, onUnmounted, reactive } from 'vue'
 import { useMainStore } from '@/stores/main'
 import {
-  mdiAccountMultiple,
+  mdiScanHelper,
   mdiCartOutline,
   mdiChartTimelineVariant,
   mdiMonitorCellphone,
   mdiReload,
-  mdiGithub,
+  mdiAirHumidifier,
+  mdiInstrumentTriangle,
+  mdiWeatherWindy,
+  mdiCoolantTemperature,
   mdiChartPie
 } from '@mdi/js'
 import SectionMain from '@/components/SectionMain.vue'
@@ -188,11 +191,11 @@ onUnmounted(() => {
       </SectionTitleLineWithButton>
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-6">
         <CardBoxWidget :trend="temperatureTrend" :trend-type="temperatureTrendType" color="text-emerald-500"
-          :icon="mdiAccountMultiple" :number="temperature" label="温度" />
+          :icon="mdiCoolantTemperature" :number="temperature" label="温度" />
         <CardBoxWidget :trend="humidityTrend" :trend-type="humidityTrendType" color="text-blue-500"
-          :icon="mdiCartOutline" :number="humidity" label="湿度" />
+          :icon="mdiAirHumidifier" :number="humidity" label="湿度" />
         <CardBoxWidget :trend="pressureTrend" :trend-type="pressureTrendType" color="text-red-500"
-          :icon="mdiChartTimelineVariant" :number="pressure" label="气压" />
+          :icon="mdiWeatherWindy" :number="pressure" label="气压" />
       </div>
       <SectionTitleLineWithButton :icon="mdiChartPie" title="风向时速表">
         <BaseButton :icon="mdiReload" color="whiteDark" />
@@ -202,9 +205,9 @@ onUnmounted(() => {
         <div id="main" style="width: 100%; height: 400px;"></div>
       </CardBox>
 
-      <SectionTitleLineWithButton :icon="mdiAccountMultiple" title="仪器概览" />
+      <SectionTitleLineWithButton :icon="mdiInstrumentTriangle" title="仪器概览" />
 
-      <NotificationBar color="info" :icon="mdiMonitorCellphone">
+      <NotificationBar color="info" :icon="mdiScanHelper">
         <b>下面是本次大作业中涉及到的所有数据</b> 注：第三个WebSocket数据仅接收了部分存入数据库。
       </NotificationBar>
 

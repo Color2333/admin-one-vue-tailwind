@@ -1,14 +1,12 @@
 import {
   mdiAccountCircle,
   mdiMonitor,
-  mdiGithub,
   mdiLock,
   mdiAlertCircle,
   mdiSquareEditOutline,
   mdiTable,
   mdiViewList,
   mdiTelevisionGuide,
-  mdiResponsive,
   mdiPalette
 } from '@mdi/js'
 
@@ -19,39 +17,19 @@ export default [
     label: '欢迎页'
   },
   {
-    to: '/tables',
-    label: '表格',
-    icon: mdiTable
-  },
-  {
-    to: '/forms',
-    label: '表单示范页',
-    icon: mdiSquareEditOutline
-  },
-  {
-    to: '/ui',
-    label: 'UI',
-    icon: mdiTelevisionGuide
-  },
-  {
     to: '/',
     label: '主题选择器',
     icon: mdiPalette
   },
   {
-    to: '/profile',
-    label: 'Profile',
-    icon: mdiAccountCircle
-  },
-  {
-    to: '/login',
-    label: 'Login',
-    icon: mdiLock
-  },
-  {
     to: '/ObservationDashboard',
-    label: 'Error',
-    icon: mdiAlertCircle
+    label: '数据大屏',
+    icon: mdiTelevisionGuide
+  },
+  {
+    to: '/data',
+    label: '数据分析',
+    icon: mdiSquareEditOutline
   },
   {
     label: '历史观测数据',

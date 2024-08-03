@@ -28,7 +28,7 @@ const submit = () => {
   <LayoutGuest>
     <SectionFullScreen v-slot="{ cardClass }" bg="purple">
       <CardBox :class="cardClass" is-form @submit.prevent="submit">
-        <h1>Login Page</h1>
+        <h1>海洋数据分析平台</h1>
         <FormField label="账号" help="请输入你的账号">
           <FormControl v-model="form.login" :icon="mdiAccount" name="login" autocomplete="username" />
         </FormField>

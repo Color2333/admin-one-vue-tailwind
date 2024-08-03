@@ -2,15 +2,12 @@
   <LayoutAuthenticated>
     <SectionMain>
       <SectionTitleLineWithButton :icon="mdiTableBorder" title="SEB16 数据总览" main />
-      <NotificationBar color="info" :icon="mdiMonitorCellphone">
-        <b>Responsive table.</b> Collapses on mobile
-      </NotificationBar>
 
       <CardBox class="mb-6" has-table>
         <TableSampleClients />
       </CardBox>
 
-      <SectionTitleLineWithButton :icon="mdiChartPie" title="选择日期范围" />
+      <SectionTitleLineWithButton :icon="mdiUpdate" title="选择日期范围" />
       <CardBox class="mb-6">
         <div class="demo-date-picker">
           <el-date-picker v-model="value" type="datetimerange" start-placeholder="Start date" end-placeholder="End date"
@@ -55,7 +52,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import {
-  mdiMonitorCellphone,
+  mdiUpdate,
   mdiTableBorder,
   mdiChartPie
 } from '@mdi/js';
@@ -72,13 +69,13 @@ import BaseButton from '@/components/BaseButton.vue';
 import { ElStatistic } from 'element-plus';
 
 const elements = ref([
-  { key: 'Temp', label: 'Temperature', chartData: null, statistics: [] },
-  { key: 'Conductivity', label: 'Conductivity', chartData: null, statistics: [] },
-  { key: 'Strains', label: 'Strains', chartData: null, statistics: [] },
-  { key: 'First_external_voltage', label: 'First External Voltage', chartData: null, statistics: [] },
-  { key: 'Second_external_voltage', label: 'Second External Voltage', chartData: null, statistics: [] },
-  { key: 'DO', label: 'Dissolved Oxygen', chartData: null, statistics: [] },
-  { key: 'Chlorophyll', label: 'Chlorophyll', chartData: null, statistics: [] },
+  { key: 'Temp', label: 'Temperature-温度', chartData: null, statistics: [] },
+  { key: 'Conductivity', label: 'Conductivity-电导率', chartData: null, statistics: [] },
+  { key: 'Strains', label: 'Strains-压力', chartData: null, statistics: [] },
+  { key: 'First_external_voltage', label: 'First External Voltage-第一外部电压', chartData: null, statistics: [] },
+  { key: 'Second_external_voltage', label: 'Second External Voltage-第二外部电压', chartData: null, statistics: [] },
+  { key: 'DO', label: 'Dissolved Oxygen-溶解氧', chartData: null, statistics: [] },
+  { key: 'Chlorophyll', label: 'Chlorophyll-叶绿素浓度', chartData: null, statistics: [] },
   // 可以继续添加其他元素
 ]);
 

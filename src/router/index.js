@@ -5,7 +5,7 @@ import Home from '@/views/HomeView.vue'
 const routes = [
   {
     meta: { title: 'Select style' },
-    path: '/',
+    path: '/style',
     name: 'style',
     component: Style
   },
@@ -28,26 +28,20 @@ const routes = [
     component: () => import('@/views/FormsView.vue')
   },
   {
+    meta: { title: 'data' },
+    path: '/data',
+    name: 'data',
+    component: () => import('@/views/dataView.vue')
+  },
+  {
     meta: { title: 'Profile' },
     path: '/profile',
     name: 'profile',
     component: () => import('@/views/ProfileView.vue')
   },
   {
-    meta: { title: 'Ui' },
-    path: '/ui',
-    name: 'ui',
-    component: () => import('@/views/UiView.vue')
-  },
-  {
-    meta: { title: 'Responsive layout' },
-    path: '/responsive',
-    name: 'responsive',
-    component: () => import('@/views/ResponsiveView.vue')
-  },
-  {
     meta: { title: 'Login' },
-    path: '/login',
+    path: '/',
     name: 'login',
     component: () => import('@/views/LoginView.vue')
   },

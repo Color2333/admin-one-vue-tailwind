@@ -2,9 +2,6 @@
   <LayoutAuthenticated>
     <SectionMain>
       <SectionTitleLineWithButton :icon="mdiTableBorder" title="SEB26 数据总览" main />
-      <NotificationBar color="info" :icon="mdiMonitorCellphone">
-        <b>Responsive table.</b> Collapses on mobile
-      </NotificationBar>
 
       <CardBox class="mb-6" has-table>
         <TableSampleClients />
@@ -68,9 +65,9 @@ import LineChart from '@/components/Charts/LineChart.vue';
 import BaseButton from '@/components/BaseButton.vue';
 
 const elements = ref([
-  { key: 'Depth', label: 'Depth', chartData: null, statistics: [] },
-  { key: 'Temp', label: 'Temperature', chartData: null, statistics: [] },
-  { key: 'Turbidity', label: 'Turbidity', chartData: null, statistics: [] }
+  { key: 'Depth', label: 'Depth-深度', chartData: null, statistics: [] },
+  { key: 'Temp', label: 'Temperature-温度', chartData: null, statistics: [] },
+  { key: 'Turbidity', label: 'Turbidity-浊度', chartData: null, statistics: [] }
 ]);
 
 

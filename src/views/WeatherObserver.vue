@@ -3,9 +3,6 @@
         <SectionMain>
             <SectionTitleLineWithButton :icon="mdiTableBorder" title="Weather Observer Data" main>
             </SectionTitleLineWithButton>
-            <NotificationBar color="info" :icon="mdiMonitorCellphone">
-                <b>Responsive table.</b> Collapses on mobile
-            </NotificationBar>
             <CardBox class="mb-6" has-table>
                 <TableSampleClients />
             </CardBox>
@@ -70,15 +67,15 @@ import LineChart from '@/components/Charts/LineChart.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import TableSampleClients from '@/components/TableWeather.vue'
 const elements = ref([
-    { key: 'Wind_direction_uncorrected_1', label: 'Wind Direction Uncorrected 1', chartData: null, statistics: [] },
-    { key: 'Wind_direction_uncorrected_2', label: 'Wind Direction Uncorrected 2', chartData: null, statistics: [] },
-    { key: 'Wind_direction_1', label: 'Wind Direction 1', chartData: null, statistics: [] },
-    { key: 'Wind_direction_2', label: 'Wind Direction 2', chartData: null, statistics: [] },
-    { key: 'Wind_speed_1', label: 'Wind Speed 1', chartData: null, statistics: [] },
-    { key: 'Wind_speed_2', label: 'Wind Speed 2', chartData: null, statistics: [] },
-    { key: 'Air_temperature_1', label: 'Air Temperature 1', chartData: null, statistics: [] },
-    { key: 'Relative_humidity_1', label: 'Relative Humidity 1', chartData: null, statistics: [] },
-    { key: 'Atmospheric_pressure', label: 'Atmospheric Pressure', chartData: null, statistics: [] },
+    { key: 'Wind_direction_uncorrected_1', label: 'Wind Direction Uncorrected 1-第一台风向仪风向 未校准', chartData: null, statistics: [] },
+    { key: 'Wind_direction_uncorrected_2', label: 'Wind Direction Uncorrected 2-第二台风向仪风向 未校准', chartData: null, statistics: [] },
+    { key: 'Wind_direction_1', label: 'Wind Direction 1-第一台风向仪风向 已校准', chartData: null, statistics: [] },
+    { key: 'Wind_direction_2', label: 'Wind Direction 2-第二台风向仪风向 已校准', chartData: null, statistics: [] },
+    { key: 'Wind_speed_1', label: 'Wind Speed 1-第一台风向仪风速', chartData: null, statistics: [] },
+    { key: 'Wind_speed_2', label: 'Wind Speed 2-第二台风向仪风速', chartData: null, statistics: [] },
+    { key: 'Air_temperature_1', label: 'Air Temperature 1-温度', chartData: null, statistics: [] },
+    { key: 'Relative_humidity_1', label: 'Relative Humidity 1-湿度', chartData: null, statistics: [] },
+    { key: 'Atmospheric_pressure', label: 'Atmospheric Pressure-大气压', chartData: null, statistics: [] },
 ]);
 
 
