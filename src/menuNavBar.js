@@ -23,7 +23,8 @@ export default [
       {
         icon: mdiLogout,
         label: 'Log Out',
-        isLogout: true
+        isLogout: true,
+        to: '/login'
       }
     ]
   },
@@ -37,6 +38,7 @@ export default [
     icon: mdiLogout,
     label: 'Log out',
     isDesktopNoLabel: true,
-    isLogout: true
+    isLogout: true,
+    to: '/loin'
   }
 ]

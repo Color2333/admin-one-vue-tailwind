@@ -3,9 +3,7 @@ import { computed, ref, onMounted, onUnmounted, reactive } from 'vue'
 import { useMainStore } from '@/stores/main'
 import {
   mdiScanHelper,
-  mdiCartOutline,
   mdiChartTimelineVariant,
-  mdiMonitorCellphone,
   mdiReload,
   mdiAirHumidifier,
   mdiInstrumentTriangle,

@@ -20,6 +20,14 @@
             <CardBox class="mb-6" height="600px">
                 <line-chart :data="chartData" height="600px" />
             </CardBox>
+            <CardBox class="mb-6" height="600px">
+                <el-select v-model="chartType" placeholder="请选择图表类型" style="margin-bottom: 10px;width:50%">
+                    <el-option label="柱状图" value="bar"></el-option>
+                    <el-option label="环形图" value="pie"></el-option>
+                </el-select>
+                <el-button @click="fetchAllData" style="margin-bottom: 10px;">更新图表</el-button>
+                <div id="dataCompositionChart" style="width: 100%; height: 600px;"></div>
+            </CardBox>
             <SectionTitleLineWithButton :icon="mdiChartPie" title="异常值捕获" />
             <CardBox class="mb-6">
                 <line-chart :data="data_outlier" height="600px"></line-chart>
@@ -35,8 +43,8 @@
                         <el-option v-for="param in availableParameters" :key="param" :label="param" :value="param">
                         </el-option>
                     </el-select>
-                    <el-button @click="performCorrelationAnalysis">Analyze Correlation</el-button>
-                    <el-button @click="fetchTimeSeriesData">Plot Time Series</el-button>
+                    <el-button @click="performCorrelationAnalysis">分析相关度</el-button>
+                    <el-button @click="fetchTimeSeriesData">绘制时间序列图</el-button>
                 </div>
             </CardBox>
             <CardBox class="mb-6">
@@ -44,6 +52,9 @@
             </CardBox>
             <CardBox class="mb-6" v-if="timeSeriesData.length > 0">
                 <line-chart :data="prepareScaledTimeSeriesChartOptions(timeSeriesData)" height="600px"></line-chart>
+            </CardBox>
+            <CardBox class="mb-6" v-if="showScatterChart">
+                <div id="scatterChart" style="height: 600px;"></div>
             </CardBox>
             <CardBox>
                 <CardBoxComponentEmpty />
@@ -113,15 +124,15 @@ const sensors = [
 ];
 
 const parameters = {
-    SEB16: ['Temperature', 'Conductivity', 'Strains', 'First External Voltage', 'Second External Voltage', 'Dissolved Oxygen', 'Chlorophyll'],
-    SEB26: ['Depth', 'Temperature', 'Turbidity'],
-    weather_observer: ['Wind Direction Uncorrected 1', 'Wind Direction Uncorrected 2', 'Wind Direction 1', 'Wind Direction 2', 'Wind Speed 1', 'Wind Speed 2', 'Air Temperature 1', 'Relative Humidity 1', 'Atmospheric Pressure']
+    SEB16: ['Temp', 'Conductivity', 'Strains', 'First_external_voltage', 'Second_external_voltage', 'DO', 'Chlorophyll'],
+    SEB26: ['Depth', 'Temp', 'Turbidity'],
+    weather_observer: ['Wind_direction_uncorrected_1', 'Wind_direction_uncorrected_2', 'Wind_direction_1', 'Wind_direction_2', 'Wind_speed_1', 'Wind_speed_2', 'Air_temperature_1', 'Relative_humidity_1', 'Atmospheric_pressure']
 };
-
 
 const selectedSensor = ref(null);
 const selectedParameters = ref([]);
 const availableParameters = ref([]);
+const chartType = ref('bar');
 
 watch(selectedSensor, (newSensor) => {
     availableParameters.value = parameters[newSensor] || [];
@@ -137,10 +148,12 @@ const dateRange = ref(['2018-03-01T16:00:00.000Z', '2018-03-01T17:00:00.000Z']);
 const chartData = ref([]);
 const data_outlier = ref([]);
 const timeSeriesData = ref([]);
+const scatterData = ref([]);
+const showScatterChart = ref(false);
 
 function fetchAllData() {
     if (selectedValue.value.length === 0 || !dateRange.value) {
-        alert('Please select all required options.');
+        alert('请至少选择一个参数');
         return;
     }
     const [sensor, parameter] = selectedValue.value;
@@ -156,6 +169,7 @@ function fetchAllData() {
         const formattedData = formatChartData(response.data.data, parameter);
         chartData.value = formattedData;
         data_outlier.value = formatChartDataWithThresholds(response.data.data, parameter);
+        renderDataCompositionChart(response.data.data);
     }).catch(error => {
         console.error('Error fetching data:', error);
     });
@@ -193,14 +207,14 @@ const formatChartDataWithThresholds = (data, label) => {
                 pointRadius: processedData.map(item => item.outlier ? 5 : 3)
             },
             {
-                label: 'Upper Threshold',
+                label: '上界阈值',
                 data: Array(processedData.length).fill(upperThreshold),
                 borderColor: 'green',
                 borderWidth: 2,
                 borderDash: [10, 5]
             },
             {
-                label: 'Lower Threshold',
+                label: '下界阈值',
                 data: Array(processedData.length).fill(lowerThreshold),
                 borderColor: 'green',
                 borderWidth: 2,
@@ -222,8 +236,75 @@ function detectOutliers(data, label) {
     }));
 }
 
+function renderDataCompositionChart(data) {
+    const values = data.map(item => item[selectedValue.value[1]]);
+    const max = Math.max(...values);
+    const min = Math.min(...values);
+    const step = (max - min) / 5;
+
+    const distribution = [0, 0, 0, 0, 0];
+    values.forEach(value => {
+        if (value < min + step) {
+            distribution[0]++;
+        } else if (value < min + 2 * step) {
+            distribution[1]++;
+        } else if (value < min + 3 * step) {
+            distribution[2]++;
+        } else if (value < min + 4 * step) {
+            distribution[3]++;
+        } else {
+            distribution[4]++;
+        }
+    });
+
+    const dataCompositionChart = echarts.init(document.getElementById('dataCompositionChart'));
+    const option = {
+        title: {
+            text: '数据组成分析',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left'
+        },
+        xAxis: chartType.value === 'bar' ? {
+            type: 'category',
+            data: ['0-' + (min + step), (min + step) + '-' + (min + 2 * step), (min + 2 * step) + '-' + (min + 3 * step), (min + 3 * step) + '-' + (min + 4 * step), (min + 4 * step) + '-' + max]
+        } : undefined,
+        yAxis: chartType.value === 'bar' ? { type: 'value' } : undefined,
+        series: [
+            {
+                name: '数据分布',
+                type: chartType.value,
+                radius: chartType.value === 'pie' ? '50%' : undefined,
+                data: chartType.value === 'bar' ? distribution : [
+                    { value: distribution[0], name: `0-${min + step}` },
+                    { value: distribution[1], name: `${min + step}-${min + 2 * step}` },
+                    { value: distribution[2], name: `${min + 2 * step}-${min + 3 * step}` },
+                    { value: distribution[3], name: `${min + 3 * step}-${min + 4 * step}` },
+                    { value: distribution[4], name: `${min + 4 * step}-${max}` }
+                ],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+
+    dataCompositionChart.setOption(option);
+}
+
 const correlationResult = ref(null);
 let correlationChart = null;
+let scatterChart = null;
+let scatterChartInitialized = false;
 
 async function performCorrelationAnalysis() {
     if (selectedParameters.value.length < 2) {
@@ -268,8 +349,18 @@ async function fetchTimeSeriesData() {
         });
         if (response.data && response.data.data) {
             timeSeriesData.value = response.data.data;
+            scatterData.value = response.data.data;
+            showScatterChart.value = true;
+            nextTick(() => {
+                if (!scatterChartInitialized) {
+                    scatterChart = echarts.init(document.getElementById('scatterChart'));
+                    scatterChartInitialized = true;
+                }
+                renderScatterChart();
+            });
         } else {
             timeSeriesData.value = [];
+            scatterData.value = [];
             console.error("Invalid time series data format");
         }
     } catch (error) {
@@ -395,4 +486,62 @@ function renderCorrelationChart() {
 
     correlationChart.setOption(options);
 }
+
+function renderScatterChart() {
+    if (!scatterData.value || !scatterChart) return;
+
+    const [param1, param2] = selectedParameters.value;
+    const data = scatterData.value.map(item => [item[param1], item[param2]]);
+
+    // 计算param2的最小值和最大值
+    const param2Values = data.map(item => item[1]);
+    const minParam2 = Math.min(...param2Values);
+    const maxParam2 = Math.max(...param2Values);
+
+    const options = {
+        title: {
+            text: '相关性散点图',
+            left: 'center',
+            top: 0
+        },
+        visualMap: {
+            min: minParam2,
+            max: maxParam2,
+            dimension: 1,
+            orient: 'vertical',
+            right: 10,
+            top: 'center',
+            text: ['HIGH', 'LOW'],
+            calculable: true,
+            inRange: {
+                color: ['#f2c31a', '#24b7f2']
+            }
+        },
+        tooltip: {
+            trigger: 'item',
+            axisPointer: {
+                type: 'cross'
+            }
+        },
+        xAxis: {
+            type: 'value',
+            name: param1,
+            scale: true // Enable auto-scaling
+        },
+        yAxis: {
+            type: 'value',
+            name: param2,
+            scale: true // Enable auto-scaling
+        },
+        series: [{
+            name: `${param1} vs ${param2}`,
+            type: 'scatter',
+            symbolSize: 5,
+            data: data
+        }]
+    };
+
+    scatterChart.setOption(options);
+}
+
 </script>

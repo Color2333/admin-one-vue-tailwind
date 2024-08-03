@@ -40,7 +40,7 @@ onMounted(() => {
       },
       plugins: {
         legend: {
-          display: false
+          display: true
         }
       }
     }

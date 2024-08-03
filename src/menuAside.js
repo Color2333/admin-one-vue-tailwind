@@ -4,7 +4,7 @@ import {
   mdiLock,
   mdiAlertCircle,
   mdiSquareEditOutline,
-  mdiTable,
+  mdiInstrumentTriangle,
   mdiViewList,
   mdiTelevisionGuide,
   mdiPalette
@@ -17,7 +17,7 @@ export default [
     label: '欢迎页'
   },
   {
-    to: '/',
+    to: '/style',
     label: '主题选择器',
     icon: mdiPalette
   },
@@ -37,14 +37,17 @@ export default [
     menu: [
       {
         to: '/10903',
+        icon: mdiInstrumentTriangle,
         label: '10903'
       },
       {
         to: '/10905',
+        icon: mdiInstrumentTriangle,
         label: '10905'
       },
       {
         to: '/observation',
+        icon: mdiInstrumentTriangle,
         label: '气象仪'
       }
     ]
