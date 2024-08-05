@@ -14,7 +14,7 @@ export default [
   {
     to: '/dashboard',
     icon: mdiMonitor,
-    label: '欢迎页'
+    label: '首页'
   },
   {
     to: '/style',

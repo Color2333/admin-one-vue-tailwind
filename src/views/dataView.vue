@@ -2,9 +2,6 @@
     <LayoutAuthenticated>
         <SectionMain>
             <SectionTitleLineWithButton :icon="mdiTableBorder" title="数据分析" main />
-            <NotificationBar color="info" :icon="mdiMonitorCellphone">
-                <b>Responsive table.</b> Collapses on mobile
-            </NotificationBar>
             <SectionTitleLineWithButton :icon="mdiChartPie" title="选择日期范围" />
             <CardBox class="mb-6">
                 <div>
@@ -308,7 +305,7 @@ let scatterChartInitialized = false;
 
 async function performCorrelationAnalysis() {
     if (selectedParameters.value.length < 2) {
-        alert("Please select at least two parameters to analyze their correlation.");
+        alert("参数选择足够后才能显示计算结果");
         return;
     }
     const [startDate, endDate] = dateRange.value;
@@ -333,7 +330,7 @@ async function performCorrelationAnalysis() {
 
 async function fetchTimeSeriesData() {
     if (selectedParameters.value.length < 2) {
-        alert("Please select at least two parameters to plot their time series.");
+        alert("至少选取两个参数才可以");
         return;
     }
     const [startDate, endDate] = dateRange.value;

@@ -58,7 +58,6 @@ import {
 } from '@mdi/js';
 import axios from 'axios';
 import SectionMain from '@/components/SectionMain.vue';
-import NotificationBar from '@/components/NotificationBar.vue';
 import TableSampleClients from '@/components/Table10903.vue';
 import CardBox from '@/components/CardBox.vue';
 import LayoutAuthenticated from '@/layouts/LayoutAuthenticated.vue';
@@ -76,7 +75,6 @@ const elements = ref([
   { key: 'Second_external_voltage', label: 'Second External Voltage-第二外部电压', chartData: null, statistics: [] },
   { key: 'DO', label: 'Dissolved Oxygen-溶解氧', chartData: null, statistics: [] },
   { key: 'Chlorophyll', label: 'Chlorophyll-叶绿素浓度', chartData: null, statistics: [] },
-  // 可以继续添加其他元素
 ]);
 
 
@@ -141,7 +139,6 @@ const fetchData = async (parameter, start_time, end_time) => {
     });
     const element = elements.value.find(el => el.key === parameter);
     element.chartData = formatChartData(response.data.data, parameter);
-    // Assume fetchStatistics is a similar function that updates element.statistics
   } catch (error) {
     console.error('Error fetching data:', error);
   }
